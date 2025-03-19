@@ -1,0 +1,11 @@
+.title {
+    color: blue;
+    font-size: 2em;
+    text-align: center;
+}
+
+.description {
+    color: gray;
+    font-size: 1.2em;
+    text-align: center;
+}

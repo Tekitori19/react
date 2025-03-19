@@ -1,0 +1,7 @@
+@host = localhost:3000
+
+###
+
+GET {{host}}
+
+###
