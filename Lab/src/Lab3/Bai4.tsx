@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProductItem, { ProductProps } from "./ProductItem";
-import { Container, Table } from "react-bootstrap";
+import { Container, Table, } from "react-bootstrap";
 function ProductList() {
     const [products] = useState<ProductProps[]>([
         {

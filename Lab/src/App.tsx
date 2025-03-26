@@ -1,9 +1,9 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Bai1 from './Lab3/Bai1'
-import Bai2 from './Lab3/Bai2'
-import Bai3 from './Lab3/Bai3'
-import Bai4 from './Lab3/Bai4'
+import Bai1 from './Lab4/Bai1'
+import Bai2 from './Lab4/Bai2'
+import Bai3 from './Lab4/Bai3'
+import Bai4 from './Lab4/Bai4'
 
 function App() {
     return (
