@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": "2",
+      "title": "Bài viết 2",
+      "body": "Nội dung bài viết 2"
+    },
+    {
+      "id": "10de",
+      "title": "ad",
+      "body": "12"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Nguyễn Văn A",
+      "email": "a@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Nguyễn Văn B",
+      "email": "b@example.com"
+    },
+    {
+      "email": "ad@gmail.com",
+      "password": "$2a$10$kpb1iwxfk3FYqiZ9pj6KAu4OyjJjhD2hyNY53qYRxqHqOLS91PPDu",
+      "id": "8oqVa1r"
+    }
+  ]
+}
