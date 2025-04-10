@@ -1,0 +1,10 @@
+@host = http://localhost:5000
+
+
+###
+
+POST {{host}}/api/seed
+
+###
+
+POST {{host}}/api/auth/login
