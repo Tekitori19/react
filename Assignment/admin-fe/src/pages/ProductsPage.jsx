@@ -119,7 +119,7 @@ function ProductsPage({ userInfo }) {
             <td className="px-5 py-3 whitespace-nowrap text-sm text-gray-700">{formatCurrency(item.price)}</td>
             {/* Tồn kho (màu sắc theo số lượng) */}
             <td className={`px-5 py-3 whitespace-nowrap text-sm font-semibold ${item.stock_quantity === 0 ? 'text-red-600' :
-                    item.stock_quantity < 10 ? 'text-yellow-600' : 'text-green-600'
+                item.stock_quantity < 10 ? 'text-yellow-600' : 'text-green-600'
                 }`}>
                 {item.stock_quantity}
             </td>
@@ -215,7 +215,7 @@ function ProductsPage({ userInfo }) {
                     onClose={() => setShowFormModal(false)}
                     item={editingItem}
                     formType={'product'} // Xác định loại form
-                    onSubmit={editingItem ? handleUpdate : handleCreate} // Hàm submit tương ứng
+                    onSubmit={editingItem ? (formData) => handleUpdate(editingItem._id, formData) : handleCreate}
                     loading={loading} // Truyền trạng thái loading cho modal
                 />
             )}
