@@ -17,7 +17,4 @@ router.get('/stats/order-status', getOrderStatusStats);
 router.get('/stats/revenue-orders-daily', getDailyRevenueAndOrders);
 router.get('/stats/product-stock', getProductStockStats);
 
-// Route seed chỉ dành cho admin và tách riêng
-router.post('/seed', authorize('admin'), seedDatabase); // Chỉ admin được chạy seed
-
 module.exports = router;

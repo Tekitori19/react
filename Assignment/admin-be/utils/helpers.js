@@ -2,42 +2,44 @@
 
 /**
  * Trả về ngày bắt đầu và kết thúc cho một khoảng thời gian nhất định.
- * @param {'week' | 'month' | 'year' | string} period Khoảng thời gian ('week', 'month', 'year', hoặc mặc định là tháng hiện tại).
+ * @param {'week' | 'month' | 'year' | 'current_month' | string} period Khoảng thời gian.
  * @returns {{start: Date, end: Date}} Object chứa ngày bắt đầu và kết thúc.
  */
 const getDateRange = (period) => {
-    const end = new Date(); // Ngày hiện tại
-    let start = new Date(); // Bắt đầu cũng từ ngày hiện tại
+    const end = new Date();
+    let start = new Date();
 
-    switch (period?.toLowerCase()) { // Chuyển về chữ thường để linh hoạt hơn
-        case 'week':
-             start.setDate(end.getDate() - 7 + 1); // 7 ngày trước (tính cả ngày hiện tại là 7 ngày)
+    switch (period?.toLowerCase()) {
+        case 'week': // 7 ngày gần nhất (tính cả hôm nay)
+            start.setDate(end.getDate() - 7 + 1);
             break;
-        case 'month':
-            start.setMonth(end.getMonth() - 1); // 1 tháng trước
-            start.setDate(start.getDate() + 1); // Bắt đầu từ ngày kế tiếp của tháng trước
-            break;
-        case 'year':
-            start.setFullYear(end.getFullYear() - 1); // 1 năm trước
-            start.setDate(start.getDate() + 1);
-            break;
-         case 'current_month': // Thêm tùy chọn lấy tháng hiện tại
-             start = new Date(end.getFullYear(), end.getMonth(), 1);
-             break;
-         // Thêm các khoảng khác nếu cần: 'last_7_days', 'last_30_days', 'year_to_date'
-        default:
-             // Mặc định: Lấy 30 ngày gần nhất (bao gồm hôm nay)
+        case 'month': // 30 ngày gần nhất (tính cả hôm nay)
             start.setDate(end.getDate() - 30 + 1);
             break;
-     }
+        case 'year': // 365 ngày gần nhất (tính cả hôm nay)
+            start.setDate(end.getDate() - 365 + 1);
+            // Hoặc setFullYear(end.getFullYear() - 1) nếu muốn đúng 1 năm trước
+            // start.setFullYear(end.getFullYear() - 1); start.setDate(start.getDate() + 1);
+            break;
+        case 'current_month': // Từ đầu tháng đến hiện tại
+            start = new Date(end.getFullYear(), end.getMonth(), 1);
+            break;
+        // Add more cases like 'last_week', 'last_month' if needed
+        // case 'last_month':
+        //    start = new Date(end.getFullYear(), end.getMonth() - 1, 1);
+        //    end = new Date(end.getFullYear(), end.getMonth(), 0); // Ngày cuối của tháng trước
+        //    break;
+        default: // Mặc định lấy 30 ngày gần nhất
+            start.setDate(end.getDate() - 30 + 1);
+            break;
+    }
 
-     // Đặt giờ về đầu ngày cho start và cuối ngày cho end
-    start.setHours(0, 0, 0, 0);
-    end.setHours(23, 59, 59, 999);
+    start.setHours(0, 0, 0, 0); // Bắt đầu từ 00:00:00 của ngày bắt đầu
+    end.setHours(23, 59, 59, 999); // Kết thúc vào 23:59:59 của ngày kết thúc
 
     return { start, end };
 };
 
 module.exports = { // Export theo kiểu CommonJS để dễ require trong các controller BE
     getDateRange,
- };
+};

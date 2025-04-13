@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db'); // Import hàm kết nối DB
 const { notFound, errorHandler } = require('./middleware/errorMiddleware'); // Import error handlers
+const { seedDatabase } = require('./controllers/dashboardController'); // Import hàm seed database
 
 // Import tất cả các routes đã tách
 const authRoutes = require('./routes/authRoutes');
@@ -29,6 +30,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/dashboard', dashboardRoutes); // Gắn dashboard routes
+app.post('/api/seed', seedDatabase); // Chỉ admin được chạy seed
 
 // --- Route Test Cơ bản ---
 app.get('/', (req, res) => {
