@@ -1,680 +1,679 @@
 /* Basic Reset & Body */
 /* ===== CSS ĐỂ FULL SCREEN VÀ CENTER LOGIN ===== */
-
-/* Đảm bảo các element gốc chiếm đủ chiều cao */
-html, body, #root {
-    height: 100%;
-    margin: 0; /* Reset margin mặc định của body */
-    padding: 0;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f8f9fa;
-    color: #343a40;
-    line-height: 1.5;
-}
-
-/* Container chính của App hoặc Layout Dashboard phải có min-height 100vh */
-.dashboard-layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* QUAN TRỌNG: Chiếm ít nhất toàn bộ chiều cao màn hình */
-}
-
-
-/* Style cho container bao quanh form login */
-.login-container {
-    display: flex;            /* Bật Flexbox */
-    justify-content: center;  /* Căn giữa theo chiều ngang */
-    align-items: center;     /* Căn giữa theo chiều dọc */
-    min-height: 100vh;       /* Chiếm ít nhất toàn bộ chiều cao màn hình */
-    width: 100%;             /* Chiếm toàn bộ chiều rộng */
-    background-color: #e9ecef; /* Màu nền cho trang login */
-    padding: 20px;           /* Thêm padding để form không chạm sát cạnh */
-    box-sizing: border-box; /* Padding không làm tăng kích thước */
-}
-
-/* Wrapper không bắt buộc nhưng giúp kiểm soát style form dễ hơn */
-.login-form-wrapper {
-    /* Có thể thêm style cho wrapper nếu cần */
-}
-
-/* Form Login đã có từ trước, giữ nguyên hoặc chỉnh sửa nếu cần */
-.login-form {
-    background: #fff;
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-.login-form h2 { margin-bottom: 25px; color: #495057; }
-.login-form .form-group { margin-bottom: 20px; text-align: left; }
-/* ... các style khác của login-form ... */
-
-/* Sửa lại style cho login error message */
-.login-error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    text-align: center; /* Căn giữa text lỗi */
-    font-size: 0.9em;
-}
-
-/* ===== END CSS SỬA LỖI LAYOUT ===== */
-
-
-/* ----- Giữ lại các CSS cũ cho Dashboard ----- */
-
-/* ... (copy toàn bộ phần CSS cũ từ DashboardLayout trở đi vào đây) ... */
-
-/* Dashboard Layout with Sidebar */
-.dashboard-layout {
-    /* ... (đã thêm min-height: 100vh ở trên) ... */
-}
-/* ... */
-
-.dashboard-main {
-    display: flex;
-    flex-grow: 1;
-    /* Thêm dòng này nếu sidebar cố định và content scroll riêng */
-    /* height: calc(100vh - 60px); */ /* Chiều cao trừ đi header */
-}
-
-.dashboard-sidebar {
-     width: 220px;
-     background-color: #495057;
-     color: #dee2e6;
-     padding-top: 15px; /* Giảm padding top một chút */
-    /* Bỏ position: fixed nếu muốn sidebar cuộn cùng trang */
-    /* Nếu muốn sidebar cố định và chỉ content scroll: */
-     /* position: sticky; */ /* Hoặc fixed */
-     /* top: 60px; /* Below header */
-     /* height: calc(100vh - 60px); */
-     /* overflow-y: auto; */ /* Cho phép sidebar tự scroll nếu nội dung dài */
- }
- .dashboard-sidebar ul { margin-top: 10px;} /* Thêm khoảng cách trên cùng cho nav */
-
-
-.dashboard-content-area {
-    flex-grow: 1;
-    padding: 25px;
-    background-color: #f8f9fa;
-    overflow-y: auto; /* Quan trọng: Cho phép khu vực nội dung cuộn */
-    /* Bỏ margin-left nếu sidebar không fixed */
-    /* Bỏ height nếu sidebar không fixed */
- }
-
-.loading-fullscreen,
-.loading-indicator {
-    padding: 20px;
-    text-align: center;
-    font-size: 1.2em;
-    color: #6c757d;
-}
-.loading-fullscreen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.error-message button {
-    background: none;
-    border: none;
-    color: #721c24;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1em;
-    padding: 0 5px;
-}
-
-
-/* Login Form */
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #e9ecef;
-}
-
-.login-form {
-    background: #fff;
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.login-form h2 {
-    margin-bottom: 20px;
-    color: #495057;
-}
-
-.login-form .form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.login-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.login-form input:focus {
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-
-.login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.login-form button:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-.login-form button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
-
-
-/* Dashboard Layout */
-.dashboard-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure it takes full height */
-}
-
-.dashboard-header {
-    background-color: #343a40;
-    color: #fff;
-    padding: 15px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-header h1 {
-    margin: 0;
-    font-size: 1.5em;
-}
-
-.user-info span {
-    margin-right: 15px;
-}
-
-.user-info button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.user-info button:hover {
-    background-color: #c82333;
-}
-
-
-.dashboard-nav {
-    background-color: #fff;
-    padding: 10px 25px;
-    border-bottom: 1px solid #dee2e6;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.dashboard-nav button {
-    background: none;
-    border: none;
-    padding: 10px 15px;
-    margin-right: 10px;
-    cursor: pointer;
-    font-size: 1em;
-    color: #495057;
-    border-bottom: 3px solid transparent; /* For active state */
-    transition: color 0.2s, border-color 0.2s;
-}
-
-.dashboard-nav button:hover {
-    color: #007bff;
-}
-
-.dashboard-nav button.active {
-    color: #007bff;
-    font-weight: 600;
-    border-bottom-color: #007bff;
-}
-
-.dashboard-content {
-    padding: 25px;
-    flex-grow: 1; /* Takes remaining space */
-    background-color: #f8f9fa;
-}
-
-
-/* Table Styles */
-.view-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-}
-.view-container h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    color: #495057;
-}
-
-.table-responsive {
-    overflow-x: auto; /* Makes table scrollable on small screens */
-    margin-top: 15px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 800px; /* Ensure table has minimum width for scroll */
-}
-
-th, td {
-    border: 1px solid #dee2e6;
-    padding: 10px 12px;
-    text-align: left;
-    vertical-align: middle; /* Align content vertically center */
-}
-
-th {
-    background-color: #f1f3f5;
-    font-weight: 600;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
-tbody tr:hover {
-    background-color: #e9ecef;
-}
-
-/* Action Buttons in Table */
-td button {
-    padding: 5px 10px;
-    margin-right: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: white;
-    transition: opacity 0.2s;
-}
-td button:hover {
-    opacity: 0.85;
-}
-.btn-edit { background-color: #ffc107; color: #333; }
-.btn-delete { background-color: #dc3545; }
-.btn-create {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.95em;
-    margin-bottom: 15px;
-     float: right; /* Align button to the right */
-}
-.btn-create:hover {
-    background-color: #218838;
-}
-
-
-/* Status Indicators */
-.status {
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.85em;
-    color: white;
-    text-transform: capitalize;
-    font-weight: 500;
-    display: inline-block; /* Make status take only needed width */
-}
-.status-order-pending, .status-payment-pending { background-color: #ffc107; color:#333} /* Orange */
-.status-order-processing { background-color: #17a2b8; } /* Teal */
-.status-order-shipped { background-color: #6f42c1; } /* Purple */
-.status-order-delivered { background-color: #28a745; } /* Green */
-.status-order-cancelled { background-color: #6c757d; } /* Grey */
-.status-order-failed, .status-payment-failed { background-color: #dc3545; } /* Red */
-.status-payment-paid { background-color: #28a745; } /* Green */
-
-.status-active { color: #28a745; font-weight: bold; }
-.status-inactive { color: #dc3545; font-weight: bold; }
-
-
-/* Pagination */
-.pagination {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px; /* Spacing between buttons */
-}
-.pagination button {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    color: #007bff;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-}
-.pagination button:hover:not(:disabled) {
-    background-color: #e9ecef;
-}
-.pagination button:disabled {
-    color: #6c757d;
-    cursor: not-allowed;
-    background-color: #f8f9fa;
-}
-.pagination button.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-    cursor: default;
-}
-.pagination span {
-    padding: 8px;
-    color: #6c757d;
-}
-
-
-/* Modal Styles */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure modal is on top */
-}
-
-.modal-content {
-    background: white;
-    padding: 25px 30px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 600px; /* Adjust max-width as needed */
-    max-height: 90vh; /* Limit height and allow scroll */
-    overflow-y: auto; /* Enable vertical scroll if content exceeds height */
-}
-
-.modal-content h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #495057;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-.modal-content .form-group {
-    margin-bottom: 15px;
-}
-
-.modal-content label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.modal-content input[type="text"],
-.modal-content input[type="email"],
-.modal-content input[type="number"],
-.modal-content input[type="password"],
-.modal-content select,
-.modal-content textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box; /* Include padding and border in width */
-    font-size: 1em;
-}
-.modal-content input:focus,
-.modal-content select:focus,
-.modal-content textarea:focus {
-     border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-.modal-content textarea {
-    resize: vertical; /* Allow vertical resize only */
-}
-
-
-.modal-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 10px; /* Spacing between buttons */
-}
-
-.modal-actions button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s;
-}
-.modal-actions button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-}
-.modal-actions button[type="submit"]:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-.modal-actions button[type="button"] {
-    background-color: #6c757d;
-    color: white;
-}
-.modal-actions button[type="button"]:hover:not(:disabled) {
-    background-color: #5a6268;
-}
-.modal-actions button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* Dashboard Layout with Sidebar */
-.dashboard-layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.dashboard-header {
-    /* Style header cũ */
-    background-color: #343a40; color: #fff; padding: 10px 20px;
-    display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: 60px; /* Fixed height */
-    z-index: 10; /* Keep header above sidebar scroll */
-    position: sticky; /* Make header sticky if layout allows */
-    top: 0;
-}
- .dashboard-header h1 { font-size: 1.4em; margin:0;}
- .user-info span { margin-right: 15px; font-size: 0.9em;}
- .btn-logout { background-color: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85em;}
-.btn-logout:hover { background-color: #c82333; }
-
-
-.dashboard-main {
-    display: flex;
-    flex-grow: 1; /* Take remaining height */
-    /* overflow: hidden; /* Prevent main container scroll if sidebar fixed */
-}
-
-.dashboard-sidebar {
-    width: 220px; /* Sidebar width */
-    background-color: #495057; /* Darker sidebar */
-    color: #dee2e6;
-    padding-top: 20px;
-    /* position: fixed; */ /* Optional: Fixed sidebar */
-    /* left: 0; */
-    /* top: 60px; /* Below header */
-    /* height: calc(100vh - 60px); */
-    /* overflow-y: auto; */
-     transition: width 0.3s ease; /* Animation if sidebar collapses */
-}
- /* Basic Scrollbar Styling for Sidebar */
-.dashboard-sidebar::-webkit-scrollbar { width: 6px; }
-.dashboard-sidebar::-webkit-scrollbar-track { background: #5a6268; }
-.dashboard-sidebar::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 3px;}
-.dashboard-sidebar::-webkit-scrollbar-thumb:hover { background: #dee2e6; }
-
-
-.dashboard-sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.dashboard-sidebar li a {
-    display: block;
-    padding: 12px 20px;
-    color: #dee2e6;
-    text-decoration: none;
-    font-size: 0.95em;
-    border-left: 4px solid transparent; /* Indicator for active link */
-    transition: background-color 0.2s, color 0.2s, border-left-color 0.2s;
-}
-
-.dashboard-sidebar li a:hover {
-    background-color: #5a6268;
-    color: #fff;
-}
-
-.dashboard-sidebar li a.active {
-    background-color: #343a40; /* Slightly darker active background */
-    color: #fff;
-    font-weight: 600;
-    border-left-color: #007bff; /* Active indicator color */
-}
-
-.dashboard-content-area {
-     flex-grow: 1; /* Take remaining width */
-    padding: 25px;
-    background-color: #f8f9fa;
-     overflow-y: auto; /* Allow content area to scroll */
-    /* margin-left: 220px; */ /* Add margin if sidebar is fixed */
-    /* height: calc(100vh - 60px); */ /* Fill remaining height if sidebar fixed */
-}
-
-/* Chart Styles */
-.dashboard-home h2 { /* Style title on home page */
-     margin-top: 0;
-     margin-bottom: 25px;
-     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    color: #495057;
-}
-
-.charts-grid {
-    display: grid;
-     /* Create a grid layout for charts */
-     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive columns */
-    gap: 25px; /* Spacing between charts */
- }
-
-.chart-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    /* Set a minimum height and allow chart to resize */
-    min-height: 300px;
-    position: relative; /* Needed for chart.js responsiveness */
-}
- .chart-container canvas {
-    /* Chart canvas should ideally fill container */
- }
- /* Style for larger charts if needed */
- .chart-container-large {
-     /* Example: make it span more columns on larger screens if using explicit grid columns */
-     /* grid-column: span 2; */ /* Requires grid-template-columns definition adjustment */
-     min-height: 400px;
- }
- .chart-container p { /* Message when no data */
-     text-align: center;
-    color: #6c757d;
-    padding: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
- }
-
- /* Ensure Modal Content Can Scroll */
- .modal-content {
-     max-height: 85vh; /* Limit height */
-    overflow-y: auto; /* Allow scroll within modal */
- }
-.no-data-message {
-     text-align: center;
-     padding: 20px;
-     color: #6c757d;
-     font-style: italic;
- }
- /* Fix pagination ellipsis alignment */
- .pagination span {
-     display: inline-flex;
-     align-items: center;
-     padding: 0 5px;
-     color: #6c757d;
- }
+/* /* Đảm bảo các element gốc chiếm đủ chiều cao */ */
+/* html, body, #root { */
+/*     height: 100%; */
+/*     margin: 0; /* Reset margin mặc định của body */ */
+/*     padding: 0; */
+/* } */
+/**/
+/* body { */
+/*     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+/*     background-color: #f8f9fa; */
+/*     color: #343a40; */
+/*     line-height: 1.5; */
+/* } */
+/**/
+/* /* Container chính của App hoặc Layout Dashboard phải có min-height 100vh */ */
+/* .dashboard-layout { */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     min-height: 100vh; /* QUAN TRỌNG: Chiếm ít nhất toàn bộ chiều cao màn hình */ */
+/* } */
+/**/
+/**/
+/* /* Style cho container bao quanh form login */ */
+/* .login-container { */
+/*     display: flex;            /* Bật Flexbox */ */
+/*     justify-content: center;  /* Căn giữa theo chiều ngang */ */
+/*     align-items: center;     /* Căn giữa theo chiều dọc */ */
+/*     min-height: 100vh;       /* Chiếm ít nhất toàn bộ chiều cao màn hình */ */
+/*     width: 100%;             /* Chiếm toàn bộ chiều rộng */ */
+/*     background-color: #e9ecef; /* Màu nền cho trang login */ */
+/*     padding: 20px;           /* Thêm padding để form không chạm sát cạnh */ */
+/*     box-sizing: border-box; /* Padding không làm tăng kích thước */ */
+/* } */
+/**/
+/* /* Wrapper không bắt buộc nhưng giúp kiểm soát style form dễ hơn */ */
+/* .login-form-wrapper { */
+/*     /* Có thể thêm style cho wrapper nếu cần */ */
+/* } */
+/**/
+/* /* Form Login đã có từ trước, giữ nguyên hoặc chỉnh sửa nếu cần */ */
+/* .login-form { */
+/*     background: #fff; */
+/*     padding: 30px 40px; */
+/*     border-radius: 8px; */
+/*     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+/*     width: 100%; */
+/*     max-width: 400px; */
+/*     text-align: center; */
+/* } */
+/* .login-form h2 { margin-bottom: 25px; color: #495057; } */
+/* .login-form .form-group { margin-bottom: 20px; text-align: left; } */
+/* /* ... các style khác của login-form ... */ */
+/**/
+/* /* Sửa lại style cho login error message */ */
+/* .login-error-message { */
+/*     background-color: #f8d7da; */
+/*     color: #721c24; */
+/*     border: 1px solid #f5c6cb; */
+/*     padding: 10px 15px; */
+/*     margin-bottom: 15px; */
+/*     border-radius: 4px; */
+/*     text-align: center; /* Căn giữa text lỗi */ */
+/*     font-size: 0.9em; */
+/* } */
+/**/
+/* /* ===== END CSS SỬA LỖI LAYOUT ===== */ */
+/**/
+/**/
+/* /* ----- Giữ lại các CSS cũ cho Dashboard ----- */ */
+/**/
+/* /* ... (copy toàn bộ phần CSS cũ từ DashboardLayout trở đi vào đây) ... */ */
+/**/
+/* /* Dashboard Layout with Sidebar */ */
+/* .dashboard-layout { */
+/*     /* ... (đã thêm min-height: 100vh ở trên) ... */ */
+/* } */
+/* /* ... */ */
+/**/
+/* .dashboard-main { */
+/*     display: flex; */
+/*     flex-grow: 1; */
+/*     /* Thêm dòng này nếu sidebar cố định và content scroll riêng */ */
+/*     /* height: calc(100vh - 60px); */ /* Chiều cao trừ đi header */ */
+/* } */
+/**/
+/* .dashboard-sidebar { */
+/*      width: 220px; */
+/*      background-color: #495057; */
+/*      color: #dee2e6; */
+/*      padding-top: 15px; /* Giảm padding top một chút */ */
+/*     /* Bỏ position: fixed nếu muốn sidebar cuộn cùng trang */ */
+/*     /* Nếu muốn sidebar cố định và chỉ content scroll: */ */
+/*      /* position: sticky; */ /* Hoặc fixed */ */
+/*      /* top: 60px; /* Below header */ */
+/*      /* height: calc(100vh - 60px); */ */
+/*      /* overflow-y: auto; */ /* Cho phép sidebar tự scroll nếu nội dung dài */ */
+/*  } */
+/*  .dashboard-sidebar ul { margin-top: 10px;} /* Thêm khoảng cách trên cùng cho nav */ */
+/**/
+/**/
+/* .dashboard-content-area { */
+/*     flex-grow: 1; */
+/*     padding: 25px; */
+/*     background-color: #f8f9fa; */
+/*     overflow-y: auto; /* Quan trọng: Cho phép khu vực nội dung cuộn */ */
+/*     /* Bỏ margin-left nếu sidebar không fixed */ */
+/*     /* Bỏ height nếu sidebar không fixed */ */
+/*  } */
+/**/
+/* .loading-fullscreen, */
+/* .loading-indicator { */
+/*     padding: 20px; */
+/*     text-align: center; */
+/*     font-size: 1.2em; */
+/*     color: #6c757d; */
+/* } */
+/* .loading-fullscreen { */
+/*     min-height: 100vh; */
+/*     display: flex; */
+/*     align-items: center; */
+/*     justify-content: center; */
+/* } */
+/**/
+/* .error-message { */
+/*     background-color: #f8d7da; */
+/*     color: #721c24; */
+/*     border: 1px solid #f5c6cb; */
+/*     padding: 10px 15px; */
+/*     margin-bottom: 15px; */
+/*     border-radius: 4px; */
+/*     display: flex; */
+/*     justify-content: space-between; */
+/*     align-items: center; */
+/* } */
+/* .error-message button { */
+/*     background: none; */
+/*     border: none; */
+/*     color: #721c24; */
+/*     cursor: pointer; */
+/*     font-weight: bold; */
+/*     font-size: 1.1em; */
+/*     padding: 0 5px; */
+/* } */
+/**/
+/**/
+/* /* Login Form */ */
+/* .login-container { */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
+/*     min-height: 100vh; */
+/*     background-color: #e9ecef; */
+/* } */
+/**/
+/* .login-form { */
+/*     background: #fff; */
+/*     padding: 30px 40px; */
+/*     border-radius: 8px; */
+/*     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+/*     width: 100%; */
+/*     max-width: 400px; */
+/*     text-align: center; */
+/* } */
+/**/
+/* .login-form h2 { */
+/*     margin-bottom: 20px; */
+/*     color: #495057; */
+/* } */
+/**/
+/* .login-form .form-group { */
+/*     margin-bottom: 15px; */
+/*     text-align: left; */
+/* } */
+/**/
+/* .login-form label { */
+/*     display: block; */
+/*     margin-bottom: 5px; */
+/*     font-weight: 500; */
+/* } */
+/**/
+/* .login-form input[type="text"], */
+/* .login-form input[type="password"] { */
+/*     width: 100%; */
+/*     padding: 10px; */
+/*     border: 1px solid #ced4da; */
+/*     border-radius: 4px; */
+/*     box-sizing: border-box; */
+/* } */
+/* .login-form input:focus { */
+/*     border-color: #80bdff; */
+/*     outline: 0; */
+/*     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); */
+/* } */
+/**/
+/**/
+/* .login-form button { */
+/*     width: 100%; */
+/*     padding: 10px; */
+/*     background-color: #007bff; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     color: white; */
+/*     font-size: 1em; */
+/*     cursor: pointer; */
+/*     transition: background-color 0.2s; */
+/* } */
+/**/
+/* .login-form button:hover:not(:disabled) { */
+/*     background-color: #0056b3; */
+/* } */
+/* .login-form button:disabled { */
+/*     background-color: #6c757d; */
+/*     cursor: not-allowed; */
+/* } */
+/**/
+/**/
+/* /* Dashboard Layout */ */
+/* .dashboard-container { */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     min-height: 100vh; /* Ensure it takes full height */ */
+/* } */
+/**/
+/* .dashboard-header { */
+/*     background-color: #343a40; */
+/*     color: #fff; */
+/*     padding: 15px 25px; */
+/*     display: flex; */
+/*     justify-content: space-between; */
+/*     align-items: center; */
+/*     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+/* } */
+/**/
+/* .dashboard-header h1 { */
+/*     margin: 0; */
+/*     font-size: 1.5em; */
+/* } */
+/**/
+/* .user-info span { */
+/*     margin-right: 15px; */
+/* } */
+/**/
+/* .user-info button { */
+/*     background-color: #dc3545; */
+/*     color: white; */
+/*     border: none; */
+/*     padding: 8px 12px; */
+/*     border-radius: 4px; */
+/*     cursor: pointer; */
+/*     transition: background-color 0.2s; */
+/* } */
+/* .user-info button:hover { */
+/*     background-color: #c82333; */
+/* } */
+/**/
+/**/
+/* .dashboard-nav { */
+/*     background-color: #fff; */
+/*     padding: 10px 25px; */
+/*     border-bottom: 1px solid #dee2e6; */
+/*     box-shadow: 0 1px 3px rgba(0,0,0,0.05); */
+/* } */
+/**/
+/* .dashboard-nav button { */
+/*     background: none; */
+/*     border: none; */
+/*     padding: 10px 15px; */
+/*     margin-right: 10px; */
+/*     cursor: pointer; */
+/*     font-size: 1em; */
+/*     color: #495057; */
+/*     border-bottom: 3px solid transparent; /* For active state */ */
+/*     transition: color 0.2s, border-color 0.2s; */
+/* } */
+/**/
+/* .dashboard-nav button:hover { */
+/*     color: #007bff; */
+/* } */
+/**/
+/* .dashboard-nav button.active { */
+/*     color: #007bff; */
+/*     font-weight: 600; */
+/*     border-bottom-color: #007bff; */
+/* } */
+/**/
+/* .dashboard-content { */
+/*     padding: 25px; */
+/*     flex-grow: 1; /* Takes remaining space */ */
+/*     background-color: #f8f9fa; */
+/* } */
+/**/
+/**/
+/* /* Table Styles */ */
+/* .view-container { */
+/*     background-color: #fff; */
+/*     padding: 20px; */
+/*     border-radius: 8px; */
+/*     box-shadow: 0 2px 5px rgba(0,0,0,0.08); */
+/* } */
+/* .view-container h2 { */
+/*     margin-top: 0; */
+/*     margin-bottom: 20px; */
+/*     border-bottom: 1px solid #eee; */
+/*     padding-bottom: 10px; */
+/*     color: #495057; */
+/* } */
+/**/
+/* .table-responsive { */
+/*     overflow-x: auto; /* Makes table scrollable on small screens */ */
+/*     margin-top: 15px; */
+/* } */
+/**/
+/* table { */
+/*     width: 100%; */
+/*     border-collapse: collapse; */
+/*     min-width: 800px; /* Ensure table has minimum width for scroll */ */
+/* } */
+/**/
+/* th, td { */
+/*     border: 1px solid #dee2e6; */
+/*     padding: 10px 12px; */
+/*     text-align: left; */
+/*     vertical-align: middle; /* Align content vertically center */ */
+/* } */
+/**/
+/* th { */
+/*     background-color: #f1f3f5; */
+/*     font-weight: 600; */
+/* } */
+/**/
+/* tbody tr:nth-child(even) { */
+/*     background-color: #f8f9fa; */
+/* } */
+/**/
+/* tbody tr:hover { */
+/*     background-color: #e9ecef; */
+/* } */
+/**/
+/* /* Action Buttons in Table */ */
+/* td button { */
+/*     padding: 5px 10px; */
+/*     margin-right: 5px; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     cursor: pointer; */
+/*     font-size: 0.9em; */
+/*     color: white; */
+/*     transition: opacity 0.2s; */
+/* } */
+/* td button:hover { */
+/*     opacity: 0.85; */
+/* } */
+/* .btn-edit { background-color: #ffc107; color: #333; } */
+/* .btn-delete { background-color: #dc3545; } */
+/* .btn-create { */
+/*     background-color: #28a745; */
+/*     color: white; */
+/*     padding: 8px 15px; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     cursor: pointer; */
+/*     font-size: 0.95em; */
+/*     margin-bottom: 15px; */
+/*      float: right; /* Align button to the right */ */
+/* } */
+/* .btn-create:hover { */
+/*     background-color: #218838; */
+/* } */
+/**/
+/**/
+/* /* Status Indicators */ */
+/* .status { */
+/*     padding: 3px 8px; */
+/*     border-radius: 12px; */
+/*     font-size: 0.85em; */
+/*     color: white; */
+/*     text-transform: capitalize; */
+/*     font-weight: 500; */
+/*     display: inline-block; /* Make status take only needed width */ */
+/* } */
+/* .status-order-pending, .status-payment-pending { background-color: #ffc107; color:#333} /* Orange */ */
+/* .status-order-processing { background-color: #17a2b8; } /* Teal */ */
+/* .status-order-shipped { background-color: #6f42c1; } /* Purple */ */
+/* .status-order-delivered { background-color: #28a745; } /* Green */ */
+/* .status-order-cancelled { background-color: #6c757d; } /* Grey */ */
+/* .status-order-failed, .status-payment-failed { background-color: #dc3545; } /* Red */ */
+/* .status-payment-paid { background-color: #28a745; } /* Green */ */
+/**/
+/* .status-active { color: #28a745; font-weight: bold; } */
+/* .status-inactive { color: #dc3545; font-weight: bold; } */
+/**/
+/**/
+/* /* Pagination */ */
+/* .pagination { */
+/*     margin-top: 20px; */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
+/*     gap: 5px; /* Spacing between buttons */ */
+/* } */
+/* .pagination button { */
+/*     background-color: #fff; */
+/*     border: 1px solid #dee2e6; */
+/*     color: #007bff; */
+/*     padding: 8px 12px; */
+/*     cursor: pointer; */
+/*     transition: background-color 0.2s, color 0.2s; */
+/* } */
+/* .pagination button:hover:not(:disabled) { */
+/*     background-color: #e9ecef; */
+/* } */
+/* .pagination button:disabled { */
+/*     color: #6c757d; */
+/*     cursor: not-allowed; */
+/*     background-color: #f8f9fa; */
+/* } */
+/* .pagination button.active { */
+/*     background-color: #007bff; */
+/*     color: white; */
+/*     border-color: #007bff; */
+/*     cursor: default; */
+/* } */
+/* .pagination span { */
+/*     padding: 8px; */
+/*     color: #6c757d; */
+/* } */
+/**/
+/**/
+/* /* Modal Styles */ */
+/* .modal-overlay { */
+/*     position: fixed; */
+/*     top: 0; */
+/*     left: 0; */
+/*     right: 0; */
+/*     bottom: 0; */
+/*     background-color: rgba(0, 0, 0, 0.6); */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
+/*     z-index: 1000; /* Ensure modal is on top */ */
+/* } */
+/**/
+/* .modal-content { */
+/*     background: white; */
+/*     padding: 25px 30px; */
+/*     border-radius: 8px; */
+/*     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); */
+/*     width: 90%; */
+/*     max-width: 600px; /* Adjust max-width as needed */ */
+/*     max-height: 90vh; /* Limit height and allow scroll */ */
+/*     overflow-y: auto; /* Enable vertical scroll if content exceeds height */ */
+/* } */
+/**/
+/* .modal-content h2 { */
+/*     margin-top: 0; */
+/*     margin-bottom: 20px; */
+/*     color: #495057; */
+/*     border-bottom: 1px solid #eee; */
+/*     padding-bottom: 10px; */
+/* } */
+/**/
+/* .modal-content .form-group { */
+/*     margin-bottom: 15px; */
+/* } */
+/**/
+/* .modal-content label { */
+/*     display: block; */
+/*     margin-bottom: 5px; */
+/*     font-weight: 500; */
+/* } */
+/**/
+/* .modal-content input[type="text"], */
+/* .modal-content input[type="email"], */
+/* .modal-content input[type="number"], */
+/* .modal-content input[type="password"], */
+/* .modal-content select, */
+/* .modal-content textarea { */
+/*     width: 100%; */
+/*     padding: 10px; */
+/*     border: 1px solid #ced4da; */
+/*     border-radius: 4px; */
+/*     box-sizing: border-box; /* Include padding and border in width */ */
+/*     font-size: 1em; */
+/* } */
+/* .modal-content input:focus, */
+/* .modal-content select:focus, */
+/* .modal-content textarea:focus { */
+/*      border-color: #80bdff; */
+/*     outline: 0; */
+/*     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); */
+/* } */
+/* .modal-content textarea { */
+/*     resize: vertical; /* Allow vertical resize only */ */
+/* } */
+/**/
+/**/
+/* .modal-actions { */
+/*     margin-top: 20px; */
+/*     display: flex; */
+/*     justify-content: flex-end; /* Align buttons to the right */ */
+/*     gap: 10px; /* Spacing between buttons */ */
+/* } */
+/**/
+/* .modal-actions button { */
+/*     padding: 10px 20px; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     cursor: pointer; */
+/*     font-size: 1em; */
+/*     transition: background-color 0.2s; */
+/* } */
+/* .modal-actions button[type="submit"] { */
+/*     background-color: #007bff; */
+/*     color: white; */
+/* } */
+/* .modal-actions button[type="submit"]:hover:not(:disabled) { */
+/*     background-color: #0056b3; */
+/* } */
+/* .modal-actions button[type="button"] { */
+/*     background-color: #6c757d; */
+/*     color: white; */
+/* } */
+/* .modal-actions button[type="button"]:hover:not(:disabled) { */
+/*     background-color: #5a6268; */
+/* } */
+/* .modal-actions button:disabled { */
+/*     opacity: 0.6; */
+/*     cursor: not-allowed; */
+/* } */
+/**/
+/* /* Dashboard Layout with Sidebar */ */
+/* .dashboard-layout { */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     min-height: 100vh; */
+/* } */
+/**/
+/* .dashboard-header { */
+/*     /* Style header cũ */ */
+/*     background-color: #343a40; color: #fff; padding: 10px 20px; */
+/*     display: flex; justify-content: space-between; align-items: center; */
+/*     box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+/*     height: 60px; /* Fixed height */ */
+/*     z-index: 10; /* Keep header above sidebar scroll */ */
+/*     position: sticky; /* Make header sticky if layout allows */ */
+/*     top: 0; */
+/* } */
+/*  .dashboard-header h1 { font-size: 1.4em; margin:0;} */
+/*  .user-info span { margin-right: 15px; font-size: 0.9em;} */
+/*  .btn-logout { background-color: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85em;} */
+/* .btn-logout:hover { background-color: #c82333; } */
+/**/
+/**/
+/* .dashboard-main { */
+/*     display: flex; */
+/*     flex-grow: 1; /* Take remaining height */ */
+/*     /* overflow: hidden; /* Prevent main container scroll if sidebar fixed */ */
+/* } */
+/**/
+/* .dashboard-sidebar { */
+/*     width: 220px; /* Sidebar width */ */
+/*     background-color: #495057; /* Darker sidebar */ */
+/*     color: #dee2e6; */
+/*     padding-top: 20px; */
+/*     /* position: fixed; */ /* Optional: Fixed sidebar */ */
+/*     /* left: 0; */ */
+/*     /* top: 60px; /* Below header */ */
+/*     /* height: calc(100vh - 60px); */ */
+/*     /* overflow-y: auto; */ */
+/*      transition: width 0.3s ease; /* Animation if sidebar collapses */ */
+/* } */
+/*  /* Basic Scrollbar Styling for Sidebar */ */
+/* .dashboard-sidebar::-webkit-scrollbar { width: 6px; } */
+/* .dashboard-sidebar::-webkit-scrollbar-track { background: #5a6268; } */
+/* .dashboard-sidebar::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 3px;} */
+/* .dashboard-sidebar::-webkit-scrollbar-thumb:hover { background: #dee2e6; } */
+/**/
+/**/
+/* .dashboard-sidebar ul { */
+/*     list-style: none; */
+/*     padding: 0; */
+/*     margin: 0; */
+/* } */
+/**/
+/* .dashboard-sidebar li a { */
+/*     display: block; */
+/*     padding: 12px 20px; */
+/*     color: #dee2e6; */
+/*     text-decoration: none; */
+/*     font-size: 0.95em; */
+/*     border-left: 4px solid transparent; /* Indicator for active link */ */
+/*     transition: background-color 0.2s, color 0.2s, border-left-color 0.2s; */
+/* } */
+/**/
+/* .dashboard-sidebar li a:hover { */
+/*     background-color: #5a6268; */
+/*     color: #fff; */
+/* } */
+/**/
+/* .dashboard-sidebar li a.active { */
+/*     background-color: #343a40; /* Slightly darker active background */ */
+/*     color: #fff; */
+/*     font-weight: 600; */
+/*     border-left-color: #007bff; /* Active indicator color */ */
+/* } */
+/**/
+/* .dashboard-content-area { */
+/*      flex-grow: 1; /* Take remaining width */ */
+/*     padding: 25px; */
+/*     background-color: #f8f9fa; */
+/*      overflow-y: auto; /* Allow content area to scroll */ */
+/*     /* margin-left: 220px; */ /* Add margin if sidebar is fixed */ */
+/*     /* height: calc(100vh - 60px); */ /* Fill remaining height if sidebar fixed */ */
+/* } */
+/**/
+/* /* Chart Styles */ */
+/* .dashboard-home h2 { /* Style title on home page */ */
+/*      margin-top: 0; */
+/*      margin-bottom: 25px; */
+/*      border-bottom: 1px solid #eee; */
+/*     padding-bottom: 10px; */
+/*     color: #495057; */
+/* } */
+/**/
+/* .charts-grid { */
+/*     display: grid; */
+/*      /* Create a grid layout for charts */ */
+/*      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive columns */ */
+/*     gap: 25px; /* Spacing between charts */ */
+/*  } */
+/**/
+/* .chart-container { */
+/*     background-color: #fff; */
+/*     padding: 20px; */
+/*     border-radius: 8px; */
+/*     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); */
+/*     /* Set a minimum height and allow chart to resize */ */
+/*     min-height: 300px; */
+/*     position: relative; /* Needed for chart.js responsiveness */ */
+/* } */
+/*  .chart-container canvas { */
+/*     /* Chart canvas should ideally fill container */ */
+/*  } */
+/*  /* Style for larger charts if needed */ */
+/*  .chart-container-large { */
+/*      /* Example: make it span more columns on larger screens if using explicit grid columns */ */
+/*      /* grid-column: span 2; */ /* Requires grid-template-columns definition adjustment */ */
+/*      min-height: 400px; */
+/*  } */
+/*  .chart-container p { /* Message when no data */ */
+/*      text-align: center; */
+/*     color: #6c757d; */
+/*     padding: 20px; */
+/*     position: absolute; */
+/*     top: 50%; */
+/*     left: 50%; */
+/*     transform: translate(-50%, -50%); */
+/*  } */
+/**/
+/*  /* Ensure Modal Content Can Scroll */ */
+/*  .modal-content { */
+/*      max-height: 85vh; /* Limit height */ */
+/*     overflow-y: auto; /* Allow scroll within modal */ */
+/*  } */
+/* .no-data-message { */
+/*      text-align: center; */
+/*      padding: 20px; */
+/*      color: #6c757d; */
+/*      font-style: italic; */
+/*  } */
+/*  /* Fix pagination ellipsis alignment */ */
+/*  .pagination span { */
+/*      display: inline-flex; */
+/*      align-items: center; */
+/*      padding: 0 5px; */
+/*      color: #6c757d; */
+/*  } */

@@ -9,7 +9,7 @@ const { faker } = require('@faker-js/faker'); // Thêm Faker
 
 // --- Cấu hình cơ bản ---
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/shop_dashboard_single_file_db'; // Thay bằng connection string của bạn
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://root:example@localhost:27017/dashboard?authSource=admin'; // Thay bằng connection string của bạn
 const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_key_for_testing_only'; // !!! THAY ĐỔI VÀ GIỮ BÍ MẬT !!!
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 
@@ -269,12 +269,13 @@ const updateStaff = asyncHandler(async (req, res) => {
 const deleteStaff = asyncHandler(async (req, res) => {
     const staff = await Staff.findById(req.params.id);
     if (staff) {
-        // Optional: Kiểm tra không cho xóa chính mình hoặc super admin (nếu có logic đó)
         if (staff._id.equals(req.staff._id)) {
             res.status(400);
             throw new Error('Cannot delete your own admin account');
         }
-        await staff.remove();
+        // === THAY ĐỔI Ở ĐÂY ===
+        await staff.deleteOne(); // Sử dụng deleteOne() thay vì remove()
+        // =======================
         res.json({ message: 'Staff removed' });
     } else {
         res.status(404); throw new Error('Staff not found');
@@ -354,13 +355,17 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.json(updatedProduct);
 });
 
-const deleteProduct = asyncHandler(async (req, res) => { // Chỉ admin
+const deleteProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
+
     if (product) {
-        await product.remove();
+        // === THAY ĐỔI Ở ĐÂY ===
+        await product.deleteOne(); // Sử dụng deleteOne() thay vì remove()
+        // =======================
         res.json({ message: 'Product removed' });
     } else {
-        res.status(404); throw new Error('Product not found');
+        res.status(404);
+        throw new Error('Product not found');
     }
 });
 
@@ -411,11 +416,12 @@ const updateUserStatus = asyncHandler(async (req, res) => { // Ví dụ: cập n
     res.json(updatedUser);
 });
 
-const deleteUser = asyncHandler(async (req, res) => { // Chỉ admin xóa user (nên cẩn thận, thường chỉ set inactive)
+const deleteUser = asyncHandler(async (req, res) => { // Chỉ admin xóa user
     const user = await User.findById(req.params.id);
     if (user) {
-        // Cân nhắc: Kiểm tra xem user có đơn hàng đang xử lý không trước khi xóa?
-        await user.remove(); // Hoặc user.is_active = false; await user.save();
+        // === THAY ĐỔI Ở ĐÂY ===
+        await user.deleteOne(); // Sử dụng deleteOne() thay vì remove()
+        // =======================
         res.json({ message: 'User removed' });
     } else {
         res.status(404); throw new Error('User not found');
@@ -783,6 +789,7 @@ app.post('/api/seed', asyncHandler(async (req, res) => {
         // --- 3. Tạo Staff ---
         const staffData = [];
         const createdStaffIds = [];
+
         // Tạo Admin gốc trước
         const adminPassword = 'admin123';
         const admin = new Staff({
@@ -791,6 +798,15 @@ app.post('/api/seed', asyncHandler(async (req, res) => {
         });
         const savedAdmin = await admin.save();
         createdStaffIds.push(savedAdmin._id);
+
+        // Tạo một Staff bình thường để test
+        const testStaffPassword = 'staff123';
+        const testStaff = new Staff({
+            username: 'teststaff', password_hash: testStaffPassword, full_name: 'Nhân Viên Test',
+            role: 'staff', email: 'teststaff@shop.example.com', is_active: true
+        });
+        const savedTestStaff = await testStaff.save();
+        createdStaffIds.push(savedTestStaff._id);
 
         // Tạo các Staff thường
         for (let i = 0; i < NUM_STAFF; i++) {
