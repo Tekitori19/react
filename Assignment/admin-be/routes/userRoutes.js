@@ -18,9 +18,9 @@ router.route('/')
 // DELETE /api/users/:id - Xóa user (chỉ admin)
 router.route('/:id')
     .get(authorize('admin', 'staff'), getUserById)
-    .delete(authorize('admin'), deleteUser);
+    .delete(authorize('admin', 'staff'), deleteUser);
 
 // PUT /api/users/:id/status - Cập nhật trạng thái (chỉ admin?)
-router.put('/:id/status', authorize('admin'), updateUserStatus); // <-- Chỉ Admin đổi status User
+router.put('/:id/status', authorize('admin', 'staff'), updateUserStatus); // <-- Chỉ Admin đổi status User
 
 module.exports = router;

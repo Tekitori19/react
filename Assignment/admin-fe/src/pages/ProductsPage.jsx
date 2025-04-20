@@ -136,7 +136,7 @@ function ProductsPage({ userInfo }) {
                     <PencilSquareIcon className="h-5 w-5" />
                 </button>
                 {/* Nút Xóa (Chỉ admin thấy) */}
-                {userInfo?.role === 'admin' && (
+                {(userInfo?.role === 'admin' || userInfo?.role === 'staff') && (
                     <button
                         onClick={() => handleDelete(item._id, item.name)}
                         className="p-1 text-red-600 hover:text-red-900 hover:bg-red-100 rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500 transition"

@@ -90,7 +90,7 @@ function UsersPage({ userInfo }) {
                 <button onClick={() => openEditStatusModal(item)} className="p-1 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-100 rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 transition" title="Đổi trạng thái">
                     <PencilSquareIcon className="h-5 w-5" />
                 </button>
-                {userInfo?.role === 'admin' && (
+                {(userInfo?.role === 'admin' || userInfo?.role === 'staff') && (
                     <button onClick={() => handleDelete(item._id, item.full_name || item.username)} className="p-1 text-red-600 hover:text-red-900 hover:bg-red-100 rounded focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500 transition" title="Xóa khách hàng">
                         <TrashIcon className="h-5 w-5" />
                     </button>

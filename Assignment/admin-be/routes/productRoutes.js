@@ -15,14 +15,14 @@ router.use(protect);
 // POST /api/products - Admin tạo (hoặc cả staff tùy yêu cầu)
 router.route('/')
     .get(authorize('admin', 'staff'), getProducts)
-    .post(authorize('admin'), createProduct); // <-- Chỉ Admin tạo SP
+    .post(authorize('admin', 'staff'), createProduct); // <-- Chỉ Admin tạo SP
 
 // GET /api/products/:id - Cả admin và staff xem được
 // PUT /api/products/:id - Admin sửa (hoặc cả staff)
 // DELETE /api/products/:id - Chỉ Admin xóa
 router.route('/:id')
     .get(authorize('admin', 'staff'), getProductById)
-    .put(authorize('admin'), updateProduct)     // <-- Chỉ Admin sửa SP
-    .delete(authorize('admin'), deleteProduct); // <-- Chỉ Admin xóa SP
+    .put(authorize('admin', 'staff'), updateProduct)     // <-- Chỉ Admin sửa SP
+    .delete(authorize('admin', 'staff'), deleteProduct); // <-- Chỉ Admin xóa SP
 
 module.exports = router;
