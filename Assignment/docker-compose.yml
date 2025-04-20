@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+
+  # ----- Service MongoDB -----
+  mongo:
+    image: mongo:6.0 # Sử dụng phiên bản cụ thể
+    container_name: mongodb_service
+    restart: always
+    ports:
+      - "${HOST_MONGO_PORT:-27016}:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME} # Lấy từ .env gốc
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD} # Lấy từ .env gốc
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mern-network
+
+  # ----- Service Mongo Express -----
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express_service
+    restart: always
+    ports:
+      - "${HOST_MONGO_EXPRESS_PORT:-8081}:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/?authSource=admin
+      ME_CONFIG_BASICAUTH_USERNAME: ""
+      ME_CONFIG_BASICAUTH_PASSWORD: ""
+    depends_on:
+      - mongo
+    networks:
+      - mern-network
+
+  # ----- Service Backend -----
+  backend:
+    build:
+      context: ./admin-be      # <<<--- ĐÚNG: Build context là thư mục ./admin-be
+      dockerfile: Dockerfile   # <<<--- ĐÚNG: Dockerfile nằm trong ./admin-be
+    container_name: backend_app_service # Tên container
+    restart: unless-stopped
+    ports:
+      - "${HOST_BACKEND_PORT:-5000}:${PORT:-5000}"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${PORT}
+      MONGO_URI: ${MONGO_URI}  # Dùng biến MONGO_URI từ .env gốc
+      JWT_SECRET: ${JWT_SECRET}
+      # JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1d}
+    depends_on:
+      - mongo
+    networks:
+      - mern-network
+    volumes:
+      # Đường dẫn BÊN TRONG container KHÔNG thay đổi
+      - backend_logs:/usr/src/app/backend/logs
+
+  # ----- Service Frontend -----
+  frontend:
+    build:
+      context: ./admin-fe      # <<<--- ĐÚNG: Build context là thư mục ./admin-fe
+      dockerfile: Dockerfile   # <<<--- ĐÚNG: Dockerfile nằm trong ./admin-fe
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL} # Truyền biến build
+    container_name: frontend_app_service # Tên container
+    restart: unless-stopped
+    ports:
+      - "${HOST_FRONTEND_PORT:-3000}:80" # Cổng Nginx trong container là 80
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+
+# ----- Định nghĩa Network -----
+networks:
+  mern-network:
+    driver: bridge
+
+# ----- Định nghĩa Volumes -----
+volumes:
+  mongodb_data:
+    driver: local
+  backend_logs:
+    driver: local
